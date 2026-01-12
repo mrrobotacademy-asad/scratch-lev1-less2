@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr Robot Academy - التحدي الذكي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #00cec9;
+            --correct: #2ed573;
+            --wrong: #ff4757;
+            --warning: #f1c40f;
+            --bg: #0f0c29;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --radius: 15px;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: radial-gradient(circle at center, #1e1b4b, #0f0c29);
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        .header { text-align: center; padding: 25px; width: 100%; }
+        
+        .logo-img { 
+            width: 220px; 
+            height: auto; 
+            max-height: 100px;
+            object-fit: contain;
+            border: 3px solid var(--secondary);
+            border-radius: 10px;
+            padding: 5px;
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 0 20px rgba(0,206,201,0.3);
+        }
+
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 25px;
+            padding: 25px;
+            width: 90%;
+            max-width: 800px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        /* --- تحسين قسم الشرح التفاعلي --- */
+        .explanation-slider {
+            position: relative;
+            background: rgba(0,0,0,0.3);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin: 20px 0;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 5px solid var(--primary);
+            transition: 0.3s;
+        }
+
+        .explanation-card h3 { color: var(--secondary); margin-top: 0; font-size: 1.6rem; }
+        
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            background: var(--primary);
+            border: none;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .nav-btn:disabled { background: #444; cursor: not-allowed; }
+
+        /* --- بقية العناصر --- */
+        .code-block {
+            background: #1e1e1e;
+            color: #58D68D;
+            padding: 15px;
+            font-family: 'Fira Code', monospace;
+            direction: ltr;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 1.1rem;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .status-bar {
+            display: flex; justify-content: space-between; background: rgba(0,0,0,0.4);
+            padding: 15px; border-radius: var(--radius); margin-bottom: 20px; font-weight: bold;
+        }
+
+        .code-display {
+            background: #000; padding: 25px; border-radius: var(--radius); font-family: 'Fira Code', monospace;
+            direction: ltr; text-align: left; border-left: 5px solid var(--primary); margin-bottom: 20px; font-size: 1.4rem;
+        }
+
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .option-btn {
+            background: rgba(255,255,255,0.05); border: 2px solid rgba(255,255,255,0.1);
+            padding: 18px; color: white; cursor: pointer; border-radius: var(--radius); transition: 0.3s;
+            font-size: 1.1rem; font-family: 'Cairo';
+        }
+        .option-btn:hover { background: var(--primary); transform: scale(1.02); }
+        .option-btn.selected { background: var(--primary); border-color: white; }
+
+        .btn-main {
+            background: linear-gradient(to right, var(--primary), #8e44ad);
+            color: white; border: none; padding: 18px 40px;
+            cursor: pointer; font-weight: 900; border-radius: 50px; font-size: 1.3rem;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .control-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .hidden { display: none !important; }
+        input[type="text"] {
+            width: 80%; padding: 15px; background: rgba(0,0,0,0.3); border: 2px solid var(--primary); color: white; border-radius: var(--radius); text-align: center; font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <img src="logo.png" alt="Mr Robot Logo" class="logo-img" onerror="this.onerror=null; this.src='https://via.placeholder.com/220x80/6c5ce7/ffffff?text=MY+LOGO';">
+    <h1 style="margin:15px 0; font-size: 2.2rem;">Mr Robot Academy</h1><br><h6 style="margin:2px 0; font-size: 1.2rem;">مهندس/ أندرو مجدي -  Phone: 01285529570   </h6>
+</div>
+
+<div class="container">
+    <div id="start-screen">
+        <h2 style="color:var(--warning);">🚀 رحلة تعلم بايثون الممتعة</h2>
+        
+        <div class="explanation-slider">
+            <div id="slide-content">
+                </div>
+            <div class="slider-nav">
+                <button class="nav-btn" onclick="moveSlide(-1)" id="prevSlide">السابق</button>
+                <span id="slide-num" style="align-self:center; font-weight:bold;">1 / 15</span>
+                <button class="nav-btn" onclick="moveSlide(1)" id="nextSlide">التالي</button>
+            </div>
+        </div>
+
+        <div style="margin: 30px 0;">
+            <input type="text" id="username" placeholder="اكتب اسمك يا بطل هنا...">
+        </div>
+        
+        <button class="btn-main" onclick="initQuiz()">ابدأ تحدي الـ 20 سؤال 🎯</button>
+    </div>
+
+    <div id="quiz-screen" class="hidden">
+        <div class="status-bar">
+            <div>⏰ <span id="timer-val">00:00</span></div>
+            <div id="progress-text" style="color:var(--secondary)">السؤال 1 / 20</div>
+            <div>⭐ <span id="score-val">0</span></div>
+        </div>
+        
+        <div class="question-zone">
+            <h3 id="q-text" style="font-size: 1.4rem;"></h3>
+            <div class="code-display" id="q-code"></div>
+            
+            <div id="options-container" class="options-grid"></div>
+            
+            <div id="input-container" class="hidden">
+                <input type="text" id="user-code-input" placeholder="اكتب إجابتك هنا...">
+            </div>
+
+            <div id="hint-box" style="margin-top:20px; display:none; color:var(--warning); background:rgba(0,0,0,0.3); padding:10px; border-radius:10px;">
+                💡 تلميحة: <span id="hint-text"></span>
+            </div>
+
+            <div class="control-group">
+                <button class="option-btn" style="background:#555; padding: 10px 20px;" onclick="navigate(-1)" id="prev-btn">⬅️ السابق</button>
+                <button class="option-btn" style="background:var(--warning); color:#000; padding: 10px 20px;" onclick="skipQuestion()">⏭️ تخطي</button>
+                <button class="option-btn" style="background:var(--wrong); padding: 10px 20px;" onclick="revealAnswer()">🔑 إجابة</button>
+                <button class="btn-main" style="flex-grow:1;" onclick="handleStep()">التحقق من الإجابة ✅</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="result-screen" class="hidden">
+        <h1 style="font-size: 4rem;">🏆</h1>
+        <h2 id="congrats-msg">ممتاز!</h2>
+        <p id="final-stats" style="font-size:1.5rem"></p>
+        <button class="btn-main" onclick="location.reload()">جولة جديدة 🔄</button>
+    </div>
+</div>
+
+<script>
+   // مصفوفة الشرح - 15 نقطة مبسطة لدرس سكراتش
+const detailedExplanation = [
+    { title: "زر التشغيل 🚩", code: "When Green Flag Clicked", desc: "العلم الأخضر هو المفتاح السحري الذي يجعل كل الأوامر تعمل معاً.", example: "مثل الضغط على زر Play في اللعبة." },
+    { title: "الحركة المستمرة 🔄", code: "Forever", desc: "هذا المكعب يجعل الدب يكرر حركته للأبد دون توقف.", example: "مثل دوران عقارب الساعة لا تتوقف أبداً." },
+    { title: "خطوات المشي 🐾", code: "Move Steps", desc: "يحدد المسافة التي يقطعها الدب في كل مرة يتحرك فيها.", example: "رقم 2 يعني خطوات هادئة، ورقم 10 يعني جري سريع!" },
+    { title: "تغيير المظهر 🎭", code: "Next Costume", desc: "يغير شكل الدب ليظهر وكأنه يحرك أقدامه فعلياً.", example: "هو الذي يحول الصور الثابتة إلى رسوم متحركة." },
+    { title: "الارتداد الذكي 🧱", code: "If on edge, bounce", desc: "يخبر الدب أن الشاشة لها حدود، وإذا لمس الطرف يجب أن يعود.", example: "مثل كرة التنس عندما تصطدم بالحائط." },
+    { title: "وقت الراحة ⏳", code: "Wait seconds", desc: "يجعل الدب ينتظر قليلاً بين كل خطوة لكي نرى حركته بوضوح.", example: "انتظار 1 ثانية أبطأ من انتظار 0.5 ثانية." },
+    { title: "التكرار المحدد 🔢", code: "Repeat (10)", desc: "يستخدم عندما نريد من الدب القيام بحركة لعدد مرات معين فقط.", example: "مثل القفز 10 مرات ثم التوقف." },
+    { title: "تغيير الحجم ⬆️", code: "Change size by (5)", desc: "يجعل الدب يكبر ويصبح ضخماً في كل مرة.", example: "مثل بالونة تنفخها فتصبح أكبر." },
+    { title: "التصغير ⬇️", code: "Change size by (-5)", desc: "استخدام علامة الناقص يجعل الدب ينكمش ويصغر حجمه.", example: "كأن الدب يبتعد عنك في غابة بعيدة." },
+    { title: "الألوان البرمجية 🎨", code: "Color Coding", desc: "كل نوع من الأوامر له لون؛ الأزرق للحركة والبرتقالي للتحكم.", example: "الألوان تساعدنا في العثور على المكعبات بسرعة." },
+    { title: "كائن البرمجة 🐻", code: "Sprite", desc: "نسمي الشخصية التي نبرمجها (مثل الدب) باسم 'سبرايت'.", example: "يمكنك إضافة قطة أو عصفور ليكونوا أصدقاء للدب." },
+    { title: "ترتيب الأوامر 🧱", code: "Stacking", desc: "يجب تركيب المكعبات فوق بعضها بالترتيب الصحيح ليعمل الكود.", example: "مثل بناء برج من المكعبات." },
+    { title: "داخل وخارج 📥", code: "Inside Loop", desc: "الأوامر التي توضع 'داخل' حلقة التكرار هي فقط التي ستتكرر.", example: "تخيل أن حلقة Forever هي حضن كبير للأوامر." },
+    { title: "سرعة الحركة ⚡", code: "Speed Control", desc: "كلما صغر وقت الانتظار (Wait)، زادت سرعة حركة الكائن.", example: "0.1 ثانية تجعل الدب يتحرك بسرعة البرق!" },
+    { title: "خلفية المنصة 🌲", code: "Backdrop", desc: "هي المكان الذي يتحرك فيه الدب مثل الغابة أو الحديقة.", example: "تغيير الخلفية يجعل اللعبة أجمل." }
+];
+
+// مصفوفة الأسئلة - 20 سؤالاً تفاعلياً
+const questions = [
+    { type: 'select', q: 'ماذا يحدث إذا وضعنا "Move" داخل حلقة "Forever"؟', options: ['يتحرك مرة واحدة', 'يتحرك للأبد', 'لا يتحرك'], ans: 'يتحرك للأبد', hint: 'كلمة Forever تعني دائماً' },
+    { type: 'input', code: 'Repeat (100)', q: 'كم مرة سيقوم الدب بالحركة إذا استخدمنا هذا المكعب؟', ans: '100', hint: 'انظر للرقم المكتوب' },
+    { type: 'select', q: 'أي أمر نستخدمه ليغير الدب ملابسه ويتحرك؟', options: ['Wait', 'Next Costume', 'Move'], ans: 'Next Costume', hint: 'الزي يسمى Costume' },
+    { type: 'input', q: 'ما هو اللون المخصص لمكعبات الحركة (Move)؟', ans: 'أزرق', hint: 'مثل لون البحر' },
+    { type: 'select', q: 'ما وظيفة أمر "If on edge, bounce"؟', options: ['يجعل الدب يختفي', 'يجعل الدب يرتد', 'يكبر الحجم'], ans: 'يجعل الدب يرتد', hint: 'كلمة Bounce تعني ارتداد' },
+    { type: 'input', code: 'Wait (0.5) seconds', q: 'كم ثانية سينتظر الدب بين الخطوات هنا؟', ans: '0.5', hint: 'نصف ثانية' },
+    { type: 'select', q: 'لجعل الدب "يصغر" في الحجم، نستخدم رقم؟', options: ['موجب (5)', 'سالب (-5)'], ans: 'سالب (-5)', hint: 'علامة الناقص تجعل الأشياء أصغر' },
+    { type: 'input', q: 'ماذا نضغط لكي يبدأ البرنامج في سكراتش؟', ans: 'العلم الأخضر', hint: 'موجود فوق المنصة' },
+    { type: 'select', q: 'أي حلقة تجعل الحركة لا تنتهي أبداً؟', options: ['Repeat', 'Forever', 'Wait'], ans: 'Forever', hint: 'تعني للأبد' },
+    { type: 'input', q: 'ماذا نسمي الشخصية (الدب) في لغة سكراتش؟', ans: 'sprite', hint: 'تبدأ بحرف S' },
+    { type: 'select', q: 'لو غيرنا الرقم في Move من 2 إلى 10، هل سيكون الدب؟', options: ['أسرع', 'أبطأ', 'يتوقف'], ans: 'أسرع', hint: 'الرقم الأكبر يعني مسافة أكبر' },
+    { type: 'input', q: 'ما لون مكعبات التحكم (Control) مثل Repeat؟', ans: 'برتقالي', hint: 'لون الفاكهة اللذيذة' },
+    { type: 'select', q: 'لماذا نستخدم أمر "Wait"؟', options: ['لنرى الحركة بوضوح', 'ليجري الدب بسرعة', 'لتغيير اللون'], ans: 'لنرى الحركة بوضوح', hint: 'بدونها سيكون سريعاً جداً' },
+    { type: 'input', code: 'Change size by (5)', q: 'هل الدب هنا سيكبر أم يصغر؟', ans: 'يكبر', hint: 'الرقم موجب' },
+    { type: 'select', q: 'أين نركب الأوامر لتعمل؟', options: ['فوق بعضها', 'بعيداً عن بعضها'], ans: 'فوق بعضها', hint: 'مثل المكعبات' },
+    { type: 'input', q: 'ما اسم البرنامج الذي نستخدمه الآن؟', ans: 'scratch', hint: 'برنامج البرمجة بالبلوكات' },
+    { type: 'select', q: 'هل يمكن للدب أن يرتد إذا لم يلمس الحافة؟', options: ['نعم', 'لا'], ans: 'لا', hint: 'Bounce تعمل عند الحافة فقط' },
+    { type: 'input', q: 'إذا كررنا الحركة 6 مرات، كم مرة سيتغير الحجم؟', ans: '6', hint: 'عدد التكرار يساوي عدد الفعل' },
+    { type: 'select', q: 'مكعب "Next Costume" موجود في أي مجموعة؟', options: ['Motion (حركة)', 'Looks (مظهر)'], ans: 'Looks (مظهر)', hint: 'لأنه يغير الشكل' },
+    { type: 'input', q: 'ماذا يحدث إذا ضغطنا الزر الأحمر بجانب العلم؟', ans: 'يتوقف البرنامج', hint: 'عكس البدء' }
+];
+    let currentSlide = 0;
+    let currentQ = 0, score = 0, seconds = 0, timer;
+
+    // وظائف السلايدر
+    function showSlide() {
+        const item = detailedExplanation[currentSlide];
+        document.getElementById('slide-content').innerHTML = `
+            <div class="explanation-card">
+                <h3>${item.title}</h3>
+                <div class="code-block">${item.code}</div>
+                <p>${item.desc}</p>
+            </div>
+        `;
+        document.getElementById('slide-num').innerText = `${currentSlide + 1} / 15`;
+        document.getElementById('prevSlide').disabled = currentSlide === 0;
+        document.getElementById('nextSlide').disabled = currentSlide === 14;
+    }
+
+    function moveSlide(dir) {
+        currentSlide += dir;
+        showSlide();
+    }
+
+    window.onload = showSlide;
+
+    // وظائف الاختبار
+    function initQuiz() {
+        if(!document.getElementById('username').value.trim()) return alert("اكتب اسمك يا بطل أولاً!");
+        document.getElementById('start-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+        loadQuestion();
+        timer = setInterval(() => {
+            seconds++;
+            let m = Math.floor(seconds/60), s = seconds%60;
+            document.getElementById('timer-val').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+        }, 1000);
+    }
+
+    function loadQuestion() {
+        const q = questions[currentQ];
+        document.getElementById('progress-text').innerText = `السؤال ${currentQ + 1} / 20`;
+        document.getElementById('q-text').innerText = q.q;
+        document.getElementById('q-code').innerText = q.code;
+        document.getElementById('hint-box').style.display = 'none';
+        
+        if(q.type === 'select') {
+            document.getElementById('options-container').classList.remove('hidden');
+            document.getElementById('input-container').classList.add('hidden');
+            document.getElementById('options-container').innerHTML = '';
+            q.options.forEach(opt => {
+                const b = document.createElement('button');
+                b.className = 'option-btn' + (q.userAns === opt ? ' selected' : '');
+                b.innerText = opt;
+                b.onclick = () => {
+                    document.querySelectorAll('.option-btn').forEach(x => x.classList.remove('selected'));
+                    b.classList.add('selected');
+                    q.userAns = opt;
+                };
+                document.getElementById('options-container').appendChild(b);
+            });
+        } else {
+            document.getElementById('options-container').classList.add('hidden');
+            document.getElementById('input-container').classList.remove('hidden');
+            document.getElementById('user-code-input').value = q.userAns || '';
+        }
+    }
+
+    function handleStep() {
+        const q = questions[currentQ];
+        const val = q.type === 'select' ? q.userAns : document.getElementById('user-code-input').value.trim();
+        if(!val) return alert("جاوب أولاً يا بطل!");
+
+        if(val.toString().toLowerCase() === q.ans.toLowerCase()) {
+            if(!q.done) { score += 10; q.done = true; document.getElementById('score-val').innerText = score; }
+            if(currentQ < 19) { currentQ++; loadQuestion(); } else { finishQuiz(); }
+        } else {
+            document.getElementById('hint-box').style.display = 'block';
+            document.getElementById('hint-text').innerText = q.hint;
+        }
+    }
+
+    function navigate(dir) {
+        if(currentQ + dir >= 0 && currentQ + dir < questions.length) {
+            currentQ += dir;
+            loadQuestion();
+        }
+    }
+
+    function skipQuestion() {
+        if(currentQ < 19) {
+            currentQ++;
+            loadQuestion();
+        } else {
+            finishQuiz();
+        }
+    }
+
+    function revealAnswer() {
+        if(confirm("سيتم خصم 10 نقاط لإظهار الحل، هل أنت موافق؟")) {
+            score -= 10;
+            document.getElementById('score-val').innerText = score;
+            alert("الإجابة الصحيحة هي: " + questions[currentQ].ans);
+        }
+    }
+
+    function finishQuiz() {
+        clearInterval(timer);
+        document.getElementById('quiz-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+        document.getElementById('congrats-msg').innerText = `عمل رائع يا ${document.getElementById('username').value}! 👑`;
+        document.getElementById('final-stats').innerText = `لقد جمعت ${score} نقطة في زمن ${Math.floor(seconds/60)} دقيقة`;
+    }
+</script>
+</body>
+</html>
