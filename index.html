@@ -71,7 +71,8 @@
             transition: 0.3s;
         }
 
-        .explanation-card h3 { color: var(--secondary); margin-top: 0; font-size: 1.6rem; }
+         .explanation-card h3 { color: var(--secondary); margin-top: 0; font-size: 1.6rem; }
+        .example-text { color: var(--warning); margin-top: 10px; font-size: 1rem; font-style: italic; }
         
         .slider-nav {
             display: flex;
@@ -170,7 +171,7 @@
                 </div>
             <div class="slider-nav">
                 <button class="nav-btn" onclick="moveSlide(-1)" id="prevSlide">السابق</button>
-                <span id="slide-num" style="align-self:center; font-weight:bold;">1 / 15</span>
+                <span id="slide-num" style="align-self:center; font-weight:bold;">1 / 13</span>
                 <button class="nav-btn" onclick="moveSlide(1)" id="nextSlide">التالي</button>
             </div>
         </div>
@@ -242,7 +243,7 @@ const detailedExplanation = [
   {
     title: "التكرار 🔁",
     code: "Repeat 6",
-    image: "Images/Repeat.png",
+    image: "Images/Repeat-6.png",
     desc: "يعيد تنفيذ الأوامر الموجودة بداخله عدد مرات محدد.",
     example: "مثل تكرار القفز 6 مرات في لعبة."
   },
@@ -285,13 +286,20 @@ const detailedExplanation = [
     image: "Images/If-On-Edge-Bounce.png",
     desc: "يجعل الشخصية ترتد عندما تصل إلى حدود الشاشة حتى لا تخرج منها.",
     example: "مثل الكرة عندما تصطدم بالحائط وترجع للخلف."
-  }
+  },
+   {
+    title: "تعديل الاتجاه️",
+    code: "Change direction",
+    image: "Images/change-dir.gif",
+    desc: " عند الارتداد عند نهاية المسرح ينقلب الكائن رأساً على عقب و الحل هو تعديل اتجاة الالتفاف  ",
+    example: "اى من الحركات البهلاونية الى حركية جانبية "
+  },
    { title: "خلفية المنصة 🌲", code: "Backdrop",
-        image: "Images/Backdrop.png", desc: "تغيير خلفية اللعبة او المسرح ", example: "تغيير الخلفية يجعل اللعبة أجمل." }
+        image: "Images/Backdrop.gif", desc: "تغيير خلفية اللعبة او المسرح ", example: "تغيير الخلفية يجعل اللعبة أجمل." },
 		 { title: " الكود الكامل 🧱", code: "الكل",
-        image: "Images/lesson2-1.jpeg", desc: "النتيجة النهائية", example: "السمكة بتتحرك فى المياه بدون  توقف " }
+        image: "Images/lesson2-1.jpeg", desc: "النتيجة النهائية", example: "السمكة بتتحرك فى المياه بدون  توقف " },
 		 { title: " الكود الكامل 🧱", code: "الكل",
-        image: "Images/lesson2-2.jpeg", desc: "النتيجة النهائية", example: "السلطعون بيتحرك فى البحر يمين و شمال لكن مايقدرش يطلع لفوق" }
+        image: "Images/lesson2-2.jpeg", desc: "النتيجة النهائية", example: "السلطعون بيتحرك فى البحر يمين و شمال لكن مايقدرش يطلع لفوق" },
 		 { title: " الكود الكامل 🧱", code: "الكل",
         image: "Images/lesson2-3.jpeg", desc: "النتيجة النهائية", example: "نجم البحر بيكبر و يغير شكله و يرجع يصغر تانى" }
 
@@ -335,9 +343,10 @@ const questions = [
                   onerror="this.style.display='none'">
                 <div class="code-block">${item.code}</div>
                 <p>${item.desc}</p>
+				 <p class="example-text">💡 مثال: ${item.example}</p>
             </div>
         `;
-        document.getElementById('slide-num').innerText = `${currentSlide + 1} / 12`;
+        document.getElementById('slide-num').innerText = `${currentSlide + 1} / 13`;
         document.getElementById('prevSlide').disabled = currentSlide === 0;
         document.getElementById('nextSlide').disabled = currentSlide === 14;
     }
