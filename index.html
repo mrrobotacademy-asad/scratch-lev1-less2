@@ -144,7 +144,15 @@
         input[type="text"] {
             width: 80%; padding: 15px; background: rgba(0,0,0,0.3); border: 2px solid var(--primary); color: white; border-radius: var(--radius); text-align: center; font-size: 1.2rem;
         }
-    </style>
+    
+
+.slide-image{
+   max-width:100%;
+    height:auto;
+    border-radius:15px;
+    margin-bottom:15px;
+}
+</style>
 </head>
 <body>
 
@@ -215,21 +223,36 @@
 <script>
    // مصفوفة الشرح - 15 نقطة مبسطة لدرس سكراتش
 const detailedExplanation = [
-    { title: "زر التشغيل 🚩", code: "When Green Flag Clicked", desc: "العلم الأخضر هو المفتاح السحري الذي يجعل كل الأوامر تعمل معاً.", example: "مثل الضغط على زر Play في اللعبة." },
-    { title: "الحركة المستمرة 🔄", code: "Forever", desc: "هذا المكعب يجعل الدب يكرر حركته للأبد دون توقف.", example: "مثل دوران عقارب الساعة لا تتوقف أبداً." },
-    { title: "خطوات المشي 🐾", code: "Move Steps", desc: "يحدد المسافة التي يقطعها الدب في كل مرة يتحرك فيها.", example: "رقم 2 يعني خطوات هادئة، ورقم 10 يعني جري سريع!" },
-    { title: "تغيير المظهر 🎭", code: "Next Costume", desc: "يغير شكل الدب ليظهر وكأنه يحرك أقدامه فعلياً.", example: "هو الذي يحول الصور الثابتة إلى رسوم متحركة." },
-    { title: "الارتداد الذكي 🧱", code: "If on edge, bounce", desc: "يخبر الدب أن الشاشة لها حدود، وإذا لمس الطرف يجب أن يعود.", example: "مثل كرة التنس عندما تصطدم بالحائط." },
-    { title: "وقت الراحة ⏳", code: "Wait seconds", desc: "يجعل الدب ينتظر قليلاً بين كل خطوة لكي نرى حركته بوضوح.", example: "انتظار 1 ثانية أبطأ من انتظار 0.5 ثانية." },
-    { title: "التكرار المحدد 🔢", code: "Repeat (10)", desc: "يستخدم عندما نريد من الدب القيام بحركة لعدد مرات معين فقط.", example: "مثل القفز 10 مرات ثم التوقف." },
-    { title: "تغيير الحجم ⬆️", code: "Change size by (5)", desc: "يجعل الدب يكبر ويصبح ضخماً في كل مرة.", example: "مثل بالونة تنفخها فتصبح أكبر." },
-    { title: "التصغير ⬇️", code: "Change size by (-5)", desc: "استخدام علامة الناقص يجعل الدب ينكمش ويصغر حجمه.", example: "كأن الدب يبتعد عنك في غابة بعيدة." },
-    { title: "الألوان البرمجية 🎨", code: "Color Coding", desc: "كل نوع من الأوامر له لون؛ الأزرق للحركة والبرتقالي للتحكم.", example: "الألوان تساعدنا في العثور على المكعبات بسرعة." },
-    { title: "كائن البرمجة 🐻", code: "Sprite", desc: "نسمي الشخصية التي نبرمجها (مثل الدب) باسم 'سبرايت'.", example: "يمكنك إضافة قطة أو عصفور ليكونوا أصدقاء للدب." },
-    { title: "ترتيب الأوامر 🧱", code: "Stacking", desc: "يجب تركيب المكعبات فوق بعضها بالترتيب الصحيح ليعمل الكود.", example: "مثل بناء برج من المكعبات." },
-    { title: "داخل وخارج 📥", code: "Inside Loop", desc: "الأوامر التي توضع 'داخل' حلقة التكرار هي فقط التي ستتكرر.", example: "تخيل أن حلقة Forever هي حضن كبير للأوامر." },
-    { title: "سرعة الحركة ⚡", code: "Speed Control", desc: "كلما صغر وقت الانتظار (Wait)، زادت سرعة حركة الكائن.", example: "0.1 ثانية تجعل الدب يتحرك بسرعة البرق!" },
-    { title: "خلفية المنصة 🌲", code: "Backdrop", desc: "هي المكان الذي يتحرك فيه الدب مثل الغابة أو الحديقة.", example: "تغيير الخلفية يجعل اللعبة أجمل." }
+    { title: "زر التشغيل 🚩", code: "When Green Flag Clicked",
+        image: "Images/When-Green-Flag-Clicked.png", desc: "العلم الأخضر هو المفتاح السحري الذي يجعل كل الأوامر تعمل معاً.", example: "مثل الضغط على زر Play في اللعبة." },
+    { title: "الحركة المستمرة 🔄", code: "Forever",
+        image: "Images/Forever.png", desc: "هذا المكعب يجعل الدب يكرر حركته للأبد دون توقف.", example: "مثل دوران عقارب الساعة لا تتوقف أبداً." },
+    { title: "خطوات المشي 🐾", code: "Move Steps",
+        image: "Images/Move-Steps.png", desc: "يحدد المسافة التي يقطعها الدب في كل مرة يتحرك فيها.", example: "رقم 2 يعني خطوات هادئة، ورقم 10 يعني جري سريع!" },
+    { title: "تغيير المظهر 🎭", code: "Next Costume",
+        image: "Images/Next-Costume.png", desc: "يغير شكل الدب ليظهر وكأنه يحرك أقدامه فعلياً.", example: "هو الذي يحول الصور الثابتة إلى رسوم متحركة." },
+    { title: "الارتداد الذكي 🧱", code: "If on edge, bounce",
+        image: "Images/If-on-edge-bounce.png", desc: "يخبر الدب أن الشاشة لها حدود، وإذا لمس الطرف يجب أن يعود.", example: "مثل كرة التنس عندما تصطدم بالحائط." },
+    { title: "وقت الراحة ⏳", code: "Wait seconds",
+        image: "Images/Wait-seconds.png", desc: "يجعل الدب ينتظر قليلاً بين كل خطوة لكي نرى حركته بوضوح.", example: "انتظار 1 ثانية أبطأ من انتظار 0.5 ثانية." },
+    { title: "التكرار المحدد 🔢", code: "Repeat (10)",
+        image: "Images/Repeat-10.png", desc: "يستخدم عندما نريد من الدب القيام بحركة لعدد مرات معين فقط.", example: "مثل القفز 10 مرات ثم التوقف." },
+    { title: "تغيير الحجم ⬆️", code: "Change size by (5)",
+        image: "Images/Change-size-by-5.png", desc: "يجعل الدب يكبر ويصبح ضخماً في كل مرة.", example: "مثل بالونة تنفخها فتصبح أكبر." },
+    { title: "التصغير ⬇️", code: "Change size by (-5)",
+        image: "Images/Change-size-by-5.png", desc: "استخدام علامة الناقص يجعل الدب ينكمش ويصغر حجمه.", example: "كأن الدب يبتعد عنك في غابة بعيدة." },
+    { title: "الألوان البرمجية 🎨", code: "Color Coding",
+        image: "Images/Color-Coding.png", desc: "كل نوع من الأوامر له لون؛ الأزرق للحركة والبرتقالي للتحكم.", example: "الألوان تساعدنا في العثور على المكعبات بسرعة." },
+    { title: "كائن البرمجة 🐻", code: "Sprite",
+        image: "Images/Sprite.png", desc: "نسمي الشخصية التي نبرمجها (مثل الدب) باسم 'سبرايت'.", example: "يمكنك إضافة قطة أو عصفور ليكونوا أصدقاء للدب." },
+    { title: "ترتيب الأوامر 🧱", code: "Stacking",
+        image: "Images/Stacking.png", desc: "يجب تركيب المكعبات فوق بعضها بالترتيب الصحيح ليعمل الكود.", example: "مثل بناء برج من المكعبات." },
+    { title: "داخل وخارج 📥", code: "Inside Loop",
+        image: "Images/Inside-Loop.png", desc: "الأوامر التي توضع 'داخل' حلقة التكرار هي فقط التي ستتكرر.", example: "تخيل أن حلقة Forever هي حضن كبير للأوامر." },
+    { title: "سرعة الحركة ⚡", code: "Speed Control",
+        image: "Images/Speed-Control.png", desc: "كلما صغر وقت الانتظار (Wait)، زادت سرعة حركة الكائن.", example: "0.1 ثانية تجعل الدب يتحرك بسرعة البرق!" },
+    { title: "خلفية المنصة 🌲", code: "Backdrop",
+        image: "Images/Backdrop.png", desc: "هي المكان الذي يتحرك فيه الدب مثل الغابة أو الحديقة.", example: "تغيير الخلفية يجعل اللعبة أجمل." }
 ];
 
 // مصفوفة الأسئلة - 20 سؤالاً تفاعلياً
@@ -264,6 +287,10 @@ const questions = [
         document.getElementById('slide-content').innerHTML = `
             <div class="explanation-card">
                 <h3>${item.title}</h3>
+                <img src="${item.image}"
+                  alt="${item.title}"
+                  class="slide-image"
+                  onerror="this.style.display='none'">
                 <div class="code-block">${item.code}</div>
                 <p>${item.desc}</p>
             </div>
@@ -370,3 +397,4 @@ const questions = [
 </script>
 </body>
 </html>
+
