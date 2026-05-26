@@ -286,6 +286,14 @@ const detailedExplanation = [
     desc: "يجعل الشخصية ترتد عندما تصل إلى حدود الشاشة حتى لا تخرج منها.",
     example: "مثل الكرة عندما تصطدم بالحائط وترجع للخلف."
   }
+   { title: "خلفية المنصة 🌲", code: "Backdrop",
+        image: "Images/Backdrop.png", desc: "تغيير خلفية اللعبة او المسرح ", example: "تغيير الخلفية يجعل اللعبة أجمل." }
+		 { title: " الكود الكامل 🧱", code: "الكل",
+        image: "Images/lesson2-1.jpeg", desc: "النتيجة النهائية", example: "السمكة بتتحرك فى المياه بدون  توقف " }
+		 { title: " الكود الكامل 🧱", code: "الكل",
+        image: "Images/lesson2-2.jpeg", desc: "النتيجة النهائية", example: "السلطعون بيتحرك فى البحر يمين و شمال لكن مايقدرش يطلع لفوق" }
+		 { title: " الكود الكامل 🧱", code: "الكل",
+        image: "Images/lesson2-3.jpeg", desc: "النتيجة النهائية", example: "نجم البحر بيكبر و يغير شكله و يرجع يصغر تانى" }
 
 ];
 
@@ -329,7 +337,7 @@ const questions = [
                 <p>${item.desc}</p>
             </div>
         `;
-        document.getElementById('slide-num').innerText = `${currentSlide + 1} / 15`;
+        document.getElementById('slide-num').innerText = `${currentSlide + 1} / 12`;
         document.getElementById('prevSlide').disabled = currentSlide === 0;
         document.getElementById('nextSlide').disabled = currentSlide === 14;
     }
